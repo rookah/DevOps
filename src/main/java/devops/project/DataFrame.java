@@ -18,13 +18,13 @@ public class DataFrame{
 	public DataFrame(Object[][] initArray) {
 		df = new ArrayList<ArrayList<Object>>();
 		
-		// Init labels
+		// init labels
 		labels = new ArrayList<String>();
 		for (int i = 0; i < initArray.length; i++) {
 			labels.add(Integer.toString(i));
 		}
 		
-		// Add data to df
+		// add data to df
 		for (int i = 0; i < initArray.length; i++) {
 			ArrayList<Object> newRow = new ArrayList<Object>();
 			for (int j = 0; j < initArray[i].length; j++) {
@@ -42,7 +42,7 @@ public class DataFrame{
 		try {
 			scFile = new Scanner(file);
 			
-			//labels
+			// labels
 			labels = new ArrayList<String>();
 			scString = new Scanner(scFile.nextLine()).useDelimiter("\\,");
 			while (scString.hasNext()) {
@@ -50,7 +50,7 @@ public class DataFrame{
 			}
 			scString.close();
 			
-			//data
+			// data
 			while (scFile.hasNextLine()) {
 				ArrayList<Object> newRow = new ArrayList<Object>();
 				scString = new Scanner(scFile.nextLine()).useDelimiter("\\,");
@@ -64,14 +64,6 @@ public class DataFrame{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public void addCol(ArrayList<Object> col) {
-		df.add(col);	
-	}
-	
-	public ArrayList<?> getCol(int col) {
-		return df.get(col);
 	}
 	
 	public String printLabels() {
@@ -123,11 +115,9 @@ public class DataFrame{
 		
 		ret = ret + printLabels();
 		
-		// data
 		if (end > df.size()) {
 			end = df.size();
 		}
-		
 		for(int j = 0; j < end;j++) {
 			ret = ret + printRow(j);
 		}
@@ -140,10 +130,72 @@ public class DataFrame{
 		
 		ret = ret + printLabels();
 		
-		for(int j = start; j < df.size();j++) {
+		if (start > df.size()) {
+			start = df.size();
+		}
+		for(int j = df.size() - start; j < df.size();j++) {
 			ret = ret + printRow(j);
 		}
 
 		return ret;
+	}
+	
+	public DataFrame selectIndex(ArrayList<Integer> indexList) {
+		DataFrame ret = new DataFrame();
+		
+		for (String s : labels) {
+			ret.labels.add(s);
+		}
+		
+		for (int i : indexList) {
+			if (i >= 0 && i < df.size()) {
+				ArrayList<Object> newRow = new ArrayList<Object>();
+				for (int j = 0; j < df.get(i).size(); j++) {
+					newRow.add(df.get(i).get(j));
+				}
+				ret.df.add(newRow);
+			}
+		}
+		
+		return ret;
+	}
+	
+	public DataFrame selectColumn(ArrayList<String> labelList) {
+		DataFrame ret = new DataFrame();
+		
+		for (String l : labelList) {
+			ret.labels.add(l);
+		}
+		
+		for (ArrayList<Object> dfRow : df) {
+			ArrayList<Object> newRow = new ArrayList<Object>();
+			for (int i = 0; i < dfRow.size(); i++) {
+				for (int j = 0; j < ret.labels.size(); j++) {
+					if (labels.get(i).equals(ret.labels.get(j))) {
+						newRow.add(dfRow.get(i));
+					}
+				}
+			}
+			ret.df.add(newRow);
+		}
+		
+		/*for (ArrayList<Object> dfRow : df) {
+			ArrayList<Object> newRow = new ArrayList<Object>();
+			for (int j = 0; j < dfRow.size(); j++) {
+				if (ret.labels.contains(labels.get(j)))
+					newRow.add(dfRow.get(j));
+			}
+			ret.df.add(newRow);
+		}
+		*/
+		return ret;
+	}
+	
+	public static void main(String[] args) {
+		DataFrame df = new DataFrame("src/main/java/devops/project/csv/machin.csv");
+		ArrayList<String> l = new ArrayList<String>();
+		l.add("Prénom");
+		l.add("Sexe");
+		System.out.println(df.selectColumn(l).toString());
 	}
 }
