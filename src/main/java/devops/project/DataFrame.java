@@ -74,25 +74,76 @@ public class DataFrame{
 		return df.get(col);
 	}
 	
-	public String toString() {
+	public String printLabels() {
 		String ret = "";
 		
-		//labels
 		for (int i = 0; i < labels.size() - 1; i++) {
 			ret = ret + labels.get(i) + ",";
 		}
 		if (labels.size() != 0)
 			ret = ret + labels.get(labels.size() - 1) + "\n";
 		
-		//data
-		for (ArrayList<Object> row : df) {
-			for (int i = 0; i < row.size() - 1; i++) {
-				ret = ret + row.get(i) + ",";
-			}
-			if (row.size() != 0)
-				ret = ret + row.get(row.size() - 1) + "\n";
+		return ret;
+	}
+	
+	public String printRow(int index) {
+		String ret = "";
+		
+		ArrayList<Object> row = df.get(index);
+		for (int i = 0; i < row.size() - 1; i++) {
+			ret = ret + row.get(i) + ",";
+		}
+		if (row.size() != 0)
+			ret = ret + row.get(row.size() - 1) + "\n";
+		
+		return ret;
+	}
+	
+	public String printData() {
+		String ret = "";
+		
+		for (int i = 0; i < df.size(); i++) {
+			ret = ret + printRow(i);
 		}
 		
+		return ret;
+	}
+	
+	public String toString() {
+		String ret = "";
+		
+		ret = ret + printLabels();
+		ret = ret + printData();
+
+		return ret;
+	}
+	
+	public String printFirst(int end) {
+		String ret = "";
+		
+		ret = ret + printLabels();
+		
+		// data
+		if (end > df.size()) {
+			end = df.size();
+		}
+		
+		for(int j = 0; j < end;j++) {
+			ret = ret + printRow(j);
+		}
+
+		return ret;
+	}
+	
+	public String printLast(int start) {
+		String ret = "";
+		
+		ret = ret + printLabels();
+		
+		for(int j = start; j < df.size();j++) {
+			ret = ret + printRow(j);
+		}
+
 		return ret;
 	}
 }
