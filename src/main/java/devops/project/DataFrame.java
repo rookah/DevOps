@@ -181,12 +181,4 @@ public class DataFrame{
 
 		return ret;
 	}
-	
-	public static void main(String[] args) {
-		DataFrame df = new DataFrame("src/main/java/devops/project/csv/machin.csv");
-		ArrayList<String> l = new ArrayList<String>();
-		l.add("Prénom");
-		l.add("Sexe");
-		System.out.println(df.selectColumn(l).toString());
-	}
 }
