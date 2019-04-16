@@ -27,7 +27,7 @@ public class SelectTest extends TestCase {
     }
 
     public void setUp() {
-        df = new DataFrame("src/main/java/devops/project/csv/machin.csv");
+        df = new DataFrame("src/main/java/devops/project/csv/test_df.csv");
     }
 
     public void testSelectNoIndex() throws Exception {

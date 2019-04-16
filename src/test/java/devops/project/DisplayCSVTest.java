@@ -4,13 +4,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
 public class DisplayCSVTest extends TestCase {
     
     private DataFrame df;
-    private Integer[][] initArray;
     /**
      * Create the test case
      *
@@ -30,7 +26,7 @@ public class DisplayCSVTest extends TestCase {
     }
 
     public void setUp() {
-        df = new DataFrame("src/main/java/devops/project/csv/machin.csv");
+        df = new DataFrame("src/main/java/devops/project/csv/test_df.csv");
     }
 
     public void testPrintAll() throws Exception {
