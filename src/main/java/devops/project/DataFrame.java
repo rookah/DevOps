@@ -200,7 +200,7 @@ public class DataFrame {
 			for (ArrayList<Object> dfRow : df) {
 				for (int j = 0; j < labels.size(); j++) {
 					if (ret.labels.get(i).equals(labels.get(j))) {
-						mean += (float) dfRow.get(j);
+						mean += Float.parseFloat((String) dfRow.get(j));
 						nbElements++;
 					}
 				}
@@ -225,10 +225,10 @@ public class DataFrame {
 				if (labelList.get(i).equals(labels.get(j))) {
 					for (ArrayList<Object> dfRow : df) {
 						if (df_empty) {
-							max = (float) dfRow.get(j);
+							max = Float.parseFloat((String) dfRow.get(j));
 						}
 						else {
-							max = Math.max(max, (float) dfRow.get(j));
+							max = Math.max(max, Float.parseFloat((String) dfRow.get(j)));
 						}
 					}
 				}
@@ -250,10 +250,10 @@ public class DataFrame {
 				if (labelList.get(i).equals(labels.get(j))) {
 					for (ArrayList<Object> dfRow : df) {
 						if (df_empty) {
-							min = (float) dfRow.get(j);
+							min = Float.parseFloat((String) dfRow.get(j));
 						}
 						else {
-							min = Math.min(min, (float) dfRow.get(j));
+							min = Math.min(min, Float.parseFloat((String) dfRow.get(j)));
 						}
 					}
 				}
