@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.io.*;
 import java.util.Scanner;
 
-public class DataFrame{
+public class DataFrame {
 
 	private ArrayList<String> labels;
 	private ArrayList<ArrayList<Object>> df;
@@ -180,5 +180,86 @@ public class DataFrame{
 		}
 
 		return ret;
+	}
+
+	public DataFrame mean() {
+		return mean(labels);
+	}
+
+	public DataFrame mean(ArrayList<String> labelList) {
+		DataFrame ret = new DataFrame();
+		ArrayList<Object> meanRow = new ArrayList<Object>();
+		
+		for (String l : labelList) {
+			ret.labels.add(l);
+		}
+
+		for (int i = 0; i < ret.labels.size(); i++) {
+			float mean = 0;
+			int nbElements = 0;
+			for (ArrayList<Object> dfRow : df) {
+				for (int j = 0; j < labels.size(); j++) {
+					if (ret.labels.get(i).equals(labels.get(j))) {
+						mean += (float) dfRow.get(j);
+						nbElements++;
+					}
+				}
+			}
+			mean = mean / nbElements;
+			meanRow.add(mean);
+		}
+
+		ret.df.add(meanRow);
+		return ret;
+	}
+
+	public float max() {
+		return max(labels);
+	}
+
+	public float max(ArrayList<String> labelList) {
+		Boolean df_empty = true;
+		float max = 0;
+		for (int i = 0; i < labelList.size(); i++) {
+			for (int j = 0; j < labels.size(); j++) {
+				if (labelList.get(i).equals(labels.get(j))) {
+					for (ArrayList<Object> dfRow : df) {
+						if (df_empty) {
+							max = (float) dfRow.get(j);
+						}
+						else {
+							max = Math.max(max, (float) dfRow.get(j));
+						}
+					}
+				}
+			}
+		}
+
+		return max;
+	}
+
+	public float min() {
+		return min(labels);
+	}
+
+	public float min(ArrayList<String> labelList) {
+		Boolean df_empty = true;
+		float min = 0;
+		for (int i = 0; i < labelList.size(); i++) {
+			for (int j = 0; j < labels.size(); j++) {
+				if (labelList.get(i).equals(labels.get(j))) {
+					for (ArrayList<Object> dfRow : df) {
+						if (df_empty) {
+							min = (float) dfRow.get(j);
+						}
+						else {
+							min = Math.min(min, (float) dfRow.get(j));
+						}
+					}
+				}
+			}
+		}
+
+		return min;
 	}
 }
