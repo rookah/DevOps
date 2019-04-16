@@ -226,6 +226,7 @@ public class DataFrame {
 					for (ArrayList<Object> dfRow : df) {
 						if (df_empty) {
 							max = Float.parseFloat((String) dfRow.get(j));
+							df_empty = false;
 						}
 						else {
 							max = Math.max(max, Float.parseFloat((String) dfRow.get(j)));
@@ -251,6 +252,7 @@ public class DataFrame {
 					for (ArrayList<Object> dfRow : df) {
 						if (df_empty) {
 							min = Float.parseFloat((String) dfRow.get(j));
+							df_empty = false;
 						}
 						else {
 							min = Math.min(min, Float.parseFloat((String) dfRow.get(j)));
