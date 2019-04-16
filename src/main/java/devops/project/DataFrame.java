@@ -11,8 +11,8 @@ public class DataFrame{
 	
 	
 	public DataFrame() {
-		df = new ArrayList<ArrayList<Object>>();
 		labels = new ArrayList<String>();
+		df = new ArrayList<ArrayList<Object>>();
 	}
 	
 	public DataFrame(Object[][] initArray) {
@@ -169,25 +169,16 @@ public class DataFrame{
 		
 		for (ArrayList<Object> dfRow : df) {
 			ArrayList<Object> newRow = new ArrayList<Object>();
-			for (int i = 0; i < dfRow.size(); i++) {
-				for (int j = 0; j < ret.labels.size(); j++) {
-					if (labels.get(i).equals(ret.labels.get(j))) {
-						newRow.add(dfRow.get(i));
+			for (int i = 0; i < ret.labels.size(); i++) {
+				for (int j = 0; j < labels.size(); j++) {
+					if (ret.labels.get(i).equals(labels.get(j))) {
+						newRow.add(dfRow.get(j));
 					}
 				}
 			}
 			ret.df.add(newRow);
 		}
-		
-		/*for (ArrayList<Object> dfRow : df) {
-			ArrayList<Object> newRow = new ArrayList<Object>();
-			for (int j = 0; j < dfRow.size(); j++) {
-				if (ret.labels.contains(labels.get(j)))
-					newRow.add(dfRow.get(j));
-			}
-			ret.df.add(newRow);
-		}
-		*/
+
 		return ret;
 	}
 	
